@@ -11,6 +11,28 @@ restService.use(
     })
 );
 
+
+
+// Index route
+restService.get('/', function (req, res) {
+    res.send('Bienvenue sur Willof God on the beat')
+})
+
+restService.get('/webhook/', function (req, res) {
+    if (req.query['hub.verify_token'] === verify_token) {
+        console.log("Chatbot WGB en cours d'utilisation")
+        res.send(req.query['hub.challenge'])
+    }
+    res.send('Error, wrong token')
+})
+
+restService.listen(restService.get('port'), function () {
+    console.log('running on port', restService.get('port'))
+})
+
+
+
+
 restService.use(bodyParser.json());
 
 restService.post("/echo", function (req, res) {
